@@ -5,7 +5,7 @@ function HeaderContainer() {
    
     <header className="app-header">
         <div className="logo-container">
-             <img src='/bot-logo.svg' alt="app-logo" />
+             <img src='/icons/bot-logo.svg' alt="app-logo" />
         </div>
         <div>
             <h1>CBT Therapy Assistant</h1>

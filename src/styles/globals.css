@@ -399,6 +399,156 @@ main {
   color: #d93025;
 }
 
+/*  Sidebar  */
+.sidebarPanel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: min(300px, 85vw);
+  background-color: var(--bg-secondary);
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  z-index: 1000;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+}
+.sidebarPanel.open {
+  transform: translateX(0);
+}
+
+.sidebarToggle {
+  position: fixed;
+  top: 72px;
+  right: 8px;
+  width: 40px;
+  height: 40px;
+  background-color: var(--button-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  color: var(--text-primary);
+  font-size: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 999;
+}
+.sidebarToggle:hover {
+  background-color: var(--button-hover);
+}
+
+.sidebarCloseButton {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  background-color: var(--button-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--text-primary);
+  font-size: 14px;
+  font-weight: bold;
+}
+.sidebarCloseButton:hover {
+  background-color: var(--button-hover);
+  transform: scale(1.1);
+}
+
+.sidebarContent {
+  margin-top: clamp(60px, 8vh, 80px);
+  padding: clamp(12px, 3vw, 16px);
+  overflow-y: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(8px, 2vh, 12px);
+}
+
+.sidebarNewChatButton {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(6px, 1.5vw, 8px);
+  padding: clamp(10px, 2.5vh, 12px);
+  background-color: var(--button-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: clamp(6px, 1.5vw, 8px);
+  cursor: pointer;
+  margin-bottom: clamp(12px, 3vh, 16px);
+  font-size: clamp(12px, 3vw, 14px);
+  font-weight: 500;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+.sidebarNewChatButton:hover {
+  background-color: var(--button-hover);
+  transform: translateY(-1px);
+}
+
+.sidebarConversations {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(6px, 1.5vh, 8px);
+  flex: 1;
+}
+
+.sidebarConversationsTitle {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: clamp(12px, 3vw, 14px);
+  margin-bottom: clamp(6px, 1.5vh, 8px);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: clamp(6px, 1.5vh, 8px);
+}
+
+.sidebarConversationButton {
+  width: 100%;
+  text-align: left;
+  padding: clamp(6px, 1.5vh, 8px);
+  border: 1px solid var(--border-color);
+  border-radius: clamp(4px, 1vw, 6px);
+  font-size: clamp(10px, 2.5vw, 12px);
+  cursor: pointer;
+  background-color: var(--button-bg);
+  color: var(--text-primary);
+  transition: all 0.2s ease;
+  word-break: break-word;
+  line-height: 1.3;
+}
+.sidebarConversationButton:hover {
+  background-color: var(--button-hover);
+  transform: translateY(-1px);
+}
+.sidebarConversationButton.active {
+  background-color: var(--text-primary);
+  color: var(--bg-secondary);
+}
+.sidebarImageContainer{
+  width: 100%;
+  max-width: 10px;
+  position: relative;
+  order: 2;
+ }
+ 
+.sidebarImageContainer > img{
+  object-fit: contain;
+  width: 100%;
+ }
+
+
 
 
 
@@ -441,6 +591,29 @@ main {
 }
 .accessibilityToggle:hover {
   background-color: var(--button-hover);
+}
+
+.accessibilityCloseButton {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  background-color: var(--button-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--text-primary);
+  font-size: 14px;
+  font-weight: bold;
+}
+.accessibilityCloseButton:hover {
+  background-color: var(--button-hover);
+  transform: scale(1.1);
 }
 
 .accessibilityMenu {
@@ -604,9 +777,7 @@ main {
 
 
 
-/* ==== Responsive Layout with @container ==== */
-
-/* Example container queries for responsiveness */
+/*  Responsive Layout with @container*/
 @container app (width > 600px) {
   .chatbot-container {
     flex-direction: row;
@@ -660,7 +831,7 @@ main {
   }
 }
 
-/* Example: accessibility panel adapts to container height */
+/*accessibility panel adapts to container height */
 @container tall (height > 40rem) {
   .accessibilityPanel {
     padding-top: 32px;

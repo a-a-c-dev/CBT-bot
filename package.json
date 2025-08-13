@@ -10,6 +10,11 @@
     "db:seed": "tsx ./scripts/seedData.ts",
     "test": "jest --config jest.config.js"
   },
+  "engines": {
+      "node":"20.0.0",
+      "npm": "10.8.2"
+    }
+  ,
   "dependencies": {
     "@langchain/community": "latest",
     "@langchain/core": "latest",

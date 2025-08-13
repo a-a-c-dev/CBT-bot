@@ -4,7 +4,6 @@ import { useError } from '@/hooks/useError';
 import useLocalStorage from '@/hooks/useLocalStorage'
 import {useRateLimit} from '@/hooks/useRateLimit'
 import ChatInput from './chatInput/ChatInput';
-import { getBaseUrl } from "../../lib/getBaseUrl";
 import MessageList from './messageList/MessageList';
 import Sidebar from '../sidebar/Sidebar';
 import {ErrorContainer} from '../errorContainer/ErrorContainer';
@@ -27,9 +26,7 @@ const sanitize = (s: string) =>
 const Form = () => {
     const controller = new AbortController()
     const [input, setInput] = useState('')
-    /*
-    const [messages, setMessages] = useState<MessageType[]>([])
-    */
+
     const {activeConversationId,messages,setMessages,startNewConversation,loadConversation,isLoaded} = useLocalStorage()
     const [isPending, startTransition] = useTransition()
     const currentControllerRef = useRef<AbortController | null>(null)
@@ -107,10 +104,9 @@ const Form = () => {
               sender: 'ai' as const 
             }
             setMessages(prev => [...prev, aiMsg]) 
-          //  useLocalStorage(messages)
             currentControllerRef.current = null
         } catch (err:any) {
-            console.log( err)
+            console.error( err)
             if(err !== 'AbortError'){
               const errorMsg = `Sorry, something went wrong :  ${err}. Please try again.` ;
               showError(errorMsg, 'network error')
@@ -122,7 +118,6 @@ const Form = () => {
       })
     },[input, isPending])
   
-    // Convert messages to the format expected by MessageList
     const convertedMessages: MessageType[] = messages.map(msg => ({
       type: msg.sender === 'user' ? 'human' : 'ai',
       text: msg.content
@@ -133,8 +128,9 @@ const Form = () => {
       const allKeys = Object.keys(localStorage);
       const convIds: string[] = allKeys
         .filter(key => key.startsWith('chat_conv_'))
-        .map(key => key.replace('chat_', ''));
-      setConversationList(convIds);
+        .map(key => key.replace('chat_', ``));
+        setConversationList(convIds);
+      
     }, [activeConversationId]); // Update when new conversation is created
   
     // Auto-start first conversation if none exists
@@ -146,7 +142,7 @@ const Form = () => {
 
     return (
       <>
-          {/*<Sidebar conversationList={conversationList} activeConversationId={activeConversationId} startNewConversation={startNewConversation} loadConversation={loadConversation}/>*/}
+         <Sidebar conversationList={conversationList} activeConversationId={activeConversationId} startNewConversation={startNewConversation} loadConversation={loadConversation}/>
           <MessageList messages={convertedMessages}  isPending ={isPending}/>
           <form onSubmit={handleSubmit} className='form-container'>
 

@@ -35,6 +35,14 @@ const AccessibilityPanel = () => {
         ⚙️
       </button>
 
+      <button
+        className={'accessibilityCloseButton'}
+        onClick={() => setIsOpen(false)}
+        aria-label="Close accessibility panel"
+      >
+        ×
+      </button>
+
       <div className={'accessibilityMenu'}>
         <h4>Accessibility Options</h4>
 

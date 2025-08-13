@@ -7,7 +7,7 @@ interface Message {
     sender: 'user' | 'ai';
   }
   
-  interface ChatStorageHook {
+  interface StorageHook {
     activeConversationId: string;
     messages: Message[];
     setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
@@ -16,14 +16,15 @@ interface Message {
     isLoaded: boolean;
   }
   
-  // The hook (TypeScript version)
-  const useLocalStorage = (): ChatStorageHook => {
+  const useLocalStorage = (): StorageHook => {
     const [activeConversationId, setActiveConversationId] = useState<string>("");
     const [messages, setMessages] = useState<Message[]>([]);
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
   
     const generateConversationId = (): string => {
-      return `conv_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+      let timestamp = Date.now();
+      let dateObject = new Date(timestamp);
+      return `conv_${dateObject.toLocaleString('en-US')}-${dateObject.getHours()}_${Math.random().toString(36)}`;
     };
   
     // Load messages for active conversation
@@ -49,6 +50,7 @@ interface Message {
     }, [activeConversationId]);
   
     // Save messages when they change
+
     useEffect(() => {
       if (!isLoaded || !activeConversationId) return;
       

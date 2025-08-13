@@ -3,18 +3,11 @@ import {RecursiveCharacterTextSplitter} from 'langchain/text_splitter'
 import {createClient} from '@supabase/supabase-js';
 import {  MistralAIEmbeddings, ChatMistralAI } from "@langchain/mistralai";
 import { SupabaseVectorStore } from "@langchain/community/vectorstores/supabase";
-import { readFile } from 'fs/promises';
-import { join, dirname } from 'path';
 import { ChatPromptTemplate  } from "@langchain/core/prompts";
-import { fileURLToPath } from 'url';
 import { StringOutputParser } from '@langchain/core/output_parsers'; 
 import { RunnableSequence, RunnablePassthrough } from "@langchain/core/runnables";
 import { NextApiRequest, NextApiResponse } from 'next';
 
-
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 
 const sbApiKey = process.env.SUPABASE_API_KEY;
 const sbUrl = process.env.SUPABASE_URL_CHATBOT;
@@ -33,17 +26,8 @@ const vectorStore = new SupabaseVectorStore(embeddings, {
     tableName:'documents',
     queryName:'match_documents'
 })
-const retriever =  vectorStore.asRetriever()
-/*
-const conversationHistory : string[] = []
+const retriever =  vectorStore.asRetriever(); 
 
-function formathistory(messages:string[]){
-
-  return messages.map((message, i)=>{
-    return i%2===0? `Human: ${message}`: `AI: ${message}`
-  }).join('\n')
-}
-  */
 const llm = new ChatMistralAI({
     apiKey: mistralApiKey, 
     topP: 0.7,                
@@ -197,7 +181,6 @@ const correctorPrompt = ChatPromptTemplate.fromTemplate(correctorTemplate);
 
 
 const combineDocuments =  (docs:{pageContent:string}[]) => docs.map(doc=>doc.pageContent).join('\n\n')
-// Same piping structure
 
 const standaloneQuestionChain = standaloneQuestionPrompt.pipe(llm).pipe(new StringOutputParser())
 
@@ -243,7 +226,6 @@ export async function handleChat(req: NextApiRequest, res: NextApiResponse) {
         res.setHeader('Allow', ['POST']);
         return res.status(405).end(`Method ${req.method} Not Allowed`);
     }
-
     try{
         
         const { safeMessage,messages } = req.body;
@@ -252,10 +234,6 @@ export async function handleChat(req: NextApiRequest, res: NextApiResponse) {
           con_history: messages,
           language:'Hebrew'
         });
-      /*
-        conversationHistory.push(safeMessage);
-        conversationHistory.push(response);
-      */
         res.json({ response });
     }catch(error){
 
