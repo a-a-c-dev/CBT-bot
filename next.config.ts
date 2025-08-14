@@ -1,21 +1,20 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   reactStrictMode: true,
   async headers() {
     return [
       {
-        source: '/(.*)',  // Apply to all routes
+        source: '/(.*)',  
         headers: [
-          // Security headers
+          
           {
             key: 'X-Frame-Options',
-            value: 'DENY'  // Prevents clickjacking
+            value: 'DENY'  
           },
           {
             key: 'X-Content-Type-Options',
-            value: 'nosniff'  // Prevents MIME sniffing
+            value: 'nosniff' 
           },
           {
             key: 'Referrer-Policy',
@@ -23,16 +22,24 @@ const nextConfig: NextConfig = {
           },
           {
             key: 'Permissions-Policy',
-            value: 'camera=(), microphone=(), geolocation=()'  // Restrict browser APIs
+            value: 'camera=(), microphone=(), geolocation=()'  
           }
         ],
       },
       {
-        source: '/api/:path*',  // API routes only
+        source: '/api/:path*', 
         headers: [
           {
             key: 'Access-Control-Allow-Origin',
-            value: '*'  // Only if you need CORS
+            value: 'https://cbt-bot.vercel.app/'
+          },
+          {
+            key: 'Access-Control-Allow-Methods',
+            value: 'GET, POST, PUT, DELETE, OPTIONS'
+          },
+          {
+            key: 'Access-Control-Allow-Headers',
+            value: 'Content-Type, Authorization'
           }
         ],
       }
