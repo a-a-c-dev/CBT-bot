@@ -1,6 +1,6 @@
 CBT-Friendly Bot
 CBT-Friendly Bot is a Cognitive Behavioral Therapy chatbot built with Next.js.
-It provides structured CBT sessions following the Beck Institute model, supports Hebrew with proper grammar and gender awareness, and includes accessibility features for a wide range of users.
+It provides structured CBT sessions following the Beck Institute model, supports Hebrew, and includes accessibility features for a wide range of users.
 
 Try it here: https://cbt-bot.vercel.app/
 
