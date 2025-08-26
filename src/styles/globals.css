@@ -700,7 +700,6 @@ main {
   position: absolute;
   bottom: -.5em;
   margin: 8px 0;
-  /* little “tail” */ 
 }
 .typing-indicator-bubble::after {
   content: '';

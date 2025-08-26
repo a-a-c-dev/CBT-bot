@@ -8,6 +8,7 @@ import { Spinner } from "@/components/spinner/Spinner";
 import AccessibilityPanel from "../components/accessibilityPanel/AccessibilityPanel";
 import FooterContainer from "@/components/footerContainer/FooterContainer";
 import { useAccessibility } from "../context/AccessibilityContext"; 
+import ErrorBoundary from "@/components/errorBoundary/ErrorBoundary";
 
 
 const geistSans = Geist({
@@ -26,6 +27,7 @@ export default function Home() {
 
   return (
     <>
+    <ErrorBoundary>
       <Head>
         <title>CBT-friendly-Bot</title>
         <meta name="description" content="cbt app" />
@@ -42,6 +44,7 @@ export default function Home() {
         </main>
        <FooterContainer/>
       </div>
+      </ErrorBoundary>
     </>
   );
 }

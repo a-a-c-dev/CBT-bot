@@ -24,7 +24,7 @@ const MessageList = React.memo( ({messages , isPending }: MessageListType): JSX.
 
     return (
         <div id="chatbot-conversation-container" className='chatbot-conversation-container'>
-        {messages.map((m:MessageType, i:number) => (              
+        {messages && messages.map((m:MessageType, i:number) => (              
           <Message key={`${i}-${m}`}  m={m} />
           ))}
         
