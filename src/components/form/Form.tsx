@@ -77,7 +77,7 @@ const Form = () => {
 
 
     const handleSubmit =useCallback(async (e: FormEvent<HTMLFormElement> | KeyboardEvent ) => {
-      e.preventDefault()
+      e.preventDefault();
       if(isPending)return
       const text = input.trim()
       if (!text) return
@@ -142,6 +142,7 @@ const Form = () => {
 
     return (
       <>
+      
          <Sidebar conversationList={conversationList} activeConversationId={activeConversationId} startNewConversation={startNewConversation} loadConversation={loadConversation}/>
           <MessageList messages={convertedMessages}  isPending ={isPending}/>
           <form onSubmit={handleSubmit} className='form-container'>
