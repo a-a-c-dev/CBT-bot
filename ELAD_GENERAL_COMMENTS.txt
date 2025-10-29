@@ -1,0 +1,8 @@
+project seems not linted although you have a lint command in your - this can be seen as sometimes there are space and sometimes not, sometimes empty lines and sometimes not , etc .... 
+
+not used imports should be removed 
+
+files as written with no object orientation - more of a function based - so when you call them they allways initate everything and no real control - everything is on the global level which you should think if it is needed (mostly not)
+
+no comments almost alongside the code - what seems trivial today is a mystry in the future 
+

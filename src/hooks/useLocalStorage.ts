@@ -39,13 +39,10 @@ interface Message {
           const parsedMessages: Message[] = JSON.parse(stored);
           setMessages(parsedMessages);
         } catch (error) {
-          console.error('Failed to load messages:', error);
-          setMessages([]);
+          console.error('Failed to load messages:', error); 
         }
-      } else {
-        setMessages([]);
       }
-      
+      setMessages([]); // ELAD : seems that you call this anycase so can remove from if/else
       setIsLoaded(true);
     }, [activeConversationId]);
   
