@@ -16,10 +16,12 @@
     }
   ,
   "dependencies": {
+    "// ELAD : 1" : " should not use lastest as they can casuse the app to break",
     "@langchain/community": "latest",
     "@langchain/core": "latest",
     "@langchain/mistralai": "latest",
     "@supabase/supabase-js": "latest",
+    "// ELAD : 2" : " chai/mocha from what i remember is a testing library so it should be in devDependencies",
     "chai": "^4.3.7",
     "cors": "^2.8.5",
     "dotenv": "latest",

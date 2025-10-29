@@ -32,7 +32,7 @@ const llm = new ChatMistralAI({
     apiKey: mistralApiKey, 
     topP: 0.7,                
 });
-
+// ELAD : the entire code section above this seems like an initializarion section that can be comnined into a single file and imported here for better readability and maintainability
 
 const standaloneQuestionTemplate = ChatPromptTemplate.fromMessages([
   ["system", `Rewrite the user's message as a standalone question that reflects their emotional state and specific concerns from the conversation.
@@ -47,6 +47,7 @@ const standaloneQuestionTemplate = ChatPromptTemplate.fromMessages([
 // Keep the same variable name for consistency
 const standaloneQuestionPrompt = standaloneQuestionTemplate;
 
+// ELAD : writing such a large section of text inside the code makes it hard to read and maintain , consider moving it to a separate file and import it here
 const answerTemplate = `
 ### Persona ### 
     - You're a Cognitive Behavioral Therapy (CBT) Assistant, your goal is to guide users through structured CBT sessions based on the Beck Institute model. You support users across 	five defined phases.
@@ -179,7 +180,8 @@ Phase 2: Before sending your response:
 const correctorPrompt = ChatPromptTemplate.fromTemplate(correctorTemplate);
 
 
-
+// ELAD : this function can be inlined directly where it is used as it is used only once and is very simple
+// ELAD : try to refactor one-line functions that are used only once as they make the code more complex to read
 const combineDocuments =  (docs:{pageContent:string}[]) => docs.map(doc=>doc.pageContent).join('\n\n')
 
 const standaloneQuestionChain = standaloneQuestionPrompt.pipe(llm).pipe(new StringOutputParser())
@@ -196,7 +198,7 @@ const answerChain = answerPrompt.pipe(llm).pipe(new StringOutputParser())
 
 const correctorChain = correctorPrompt.pipe(llm).pipe(new StringOutputParser());
 
-
+// ELAD : missing comments and what is the overall purpose of this chain
 const chain = RunnableSequence.from([
   {
     standalone_question:standaloneQuestionChain,
@@ -226,8 +228,9 @@ export async function handleChat(req: NextApiRequest, res: NextApiResponse) {
         res.setHeader('Allow', ['POST']);
         return res.status(405).end(`Method ${req.method} Not Allowed`);
     }
-    try{
-        
+    try {
+        // ELAD : missing validation - no one promises that the body will contain safeMessage and messages
+        // ELAD : no empty lines should be between code sections
         const { safeMessage,messages } = req.body;
         const response = await chain.invoke({
           question: safeMessage,
@@ -235,10 +238,10 @@ export async function handleChat(req: NextApiRequest, res: NextApiResponse) {
           language:'Hebrew'
         });
         res.json({ response });
-    }catch(error){
-
+    } catch (error) {
         console.error('API Error:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        res.status(500).json({ error: 'Internal Server Error' }); 
+        // ELAD : never send Internal server error - instead send a more descriptive message (helpful in debugging)
     }
 
  
