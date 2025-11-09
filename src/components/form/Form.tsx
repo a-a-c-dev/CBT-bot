@@ -26,7 +26,6 @@ const sanitize = (s: string) =>
 const Form = () => {
     const controller = new AbortController()
     const [input, setInput] = useState('')
-
     const {activeConversationId,messages,setMessages,startNewConversation,loadConversation,isLoaded} = useLocalStorage()
     const [isPending, startTransition] = useTransition()
     const currentControllerRef = useRef<AbortController | null>(null)
@@ -147,8 +146,6 @@ const Form = () => {
           <MessageList messages={convertedMessages}  isPending ={isPending}/>
           <form onSubmit={handleSubmit} className='form-container'>
 
-
-            
             <div className='chatbot-input-container'>
               <ChatInput value={input} onChange={setInput} onSubmit={handleSubmit}/>
             <button className='button' type="submit">
@@ -168,6 +165,6 @@ const Form = () => {
          
       </>
     )
-  }
+}
 
 export default Form

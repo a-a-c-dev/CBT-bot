@@ -42,8 +42,6 @@ interface Message {
           console.error('Failed to load messages:', error);
           setMessages([]);
         }
-      } else {
-        setMessages([]);
       }
       
       setIsLoaded(true);

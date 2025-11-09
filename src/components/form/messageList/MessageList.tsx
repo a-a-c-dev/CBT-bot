@@ -19,8 +19,6 @@ interface MessageType {
   }
 
 const MessageList = React.memo( ({messages , isPending }: MessageListType): JSX.Element => {
-    const date = new Date();
-
 
     return (
         <div id="chatbot-conversation-container" className='chatbot-conversation-container'>
