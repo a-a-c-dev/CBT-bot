@@ -23,10 +23,15 @@ Mental well-being tools should be accessible. This project aims to provide a pri
 For Developers
 Want to run this project yourself or contribute?
 Get the code: git clone https://github.com/a-a-c-dev/CBT-bot
+
 Install what's needed: npm install (or yarn install)
+
 Start it up: npm run dev (or yarn dev)
+
 You can then see it at http://localhost:3000.
+
 Contribution
+
 Got ideas or want to help? Pull requests are very welcome!
 
 License:
